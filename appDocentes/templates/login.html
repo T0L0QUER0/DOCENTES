@@ -1,10 +1,11 @@
+{% load static  %}
+
 <!DOCTYPE html>
 <html lang="es">
-{% load static  %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido</title>
+    <title>Inicio de sesión</title>
     
     <link rel="stylesheet" href="{% static 'Styles/login.css' %}">
 
@@ -24,10 +25,13 @@
                     
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" id="password" name="password" class="form-input" required>
-                    <a href="#" class="forgot-password">¿Olvidó su contraseña?</a>
-                    
-                    <button type="submit" class="login-button">Iniciar sesión</button>
+                    <a href="#" class="forgot-password">¿Olvidó su contraseña?</a> 
                 </form>
+
+                <form action="{% url 'home' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="login-button">Iniciar sesión</button>
+                </form>                
                 
                 <div class="no-account-box">
                     <h2 class="no-account-title">¿No tienes una cuenta?</h2>

@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column; /* Apila las filas verticalmente */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-row,
+.table-row {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-row {
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+.fixed-column-header,
+.data-column-header,
+.fixed-column,
+.data-column {
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box; /* Para incluir el padding y el borde en el ancho */
+}
+
+/* Estilo para la primera columna fija */
+.fixed-column-header,
+.fixed-column {
+    flex-basis: 150px; /* Ancho fijo para la columna de clave docente */
+    flex-shrink: 0; /* Evita que se encoja */
+    background-color: #fefefe;
+}
+
+/* Contenedor con scroll para el resto de los datos */
+.scrollable-content-header,
+.scrollable-content {
+    display: flex; /* Muestra las columnas una al lado de la otra */
+    overflow-x: auto;
+}
+
+.columna_fija{
+    flex-basis: 150px; /* Ancho fijo para la columna de clave docente */
+    flex-shrink: 0; /* Evita que se encoja */
+    background-color: #fefefe;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box; /* Para incluir el padding y el borde en el ancho */
+}
+
+/* Estilos de las columnas de datos */
+.data-column-header,
+.data-column {
+    flex-basis: 150px; /* Ancho para las columnas de datos */
+    flex-shrink: 0;
+}
+
+
+
+.filters-container-horizontal {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea si no caben */
+    gap: 15px; /* Espacio entre las cajas de filtro */
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+}
+
+.filter-box-horizontal {
+    display: flex; /* Alinea las opciones dentro de cada caja */
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-box-horizontal label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Borde más redondeado para un look de "pastilla" */
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Oculta la casilla de verificación original */
+.filter-box-horizontal input[type="checkbox"] {
+    display: none;
+}
+
+/* Estilo para la "pastilla" de la etiqueta cuando está seleccionada */
+.filter-box-horizontal input[type="checkbox"]:checked + span {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+/* Estilo para el texto dentro del label (opcional) */
+.filter-box-horizontal label span {
+    font-size: 0.9em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.page-header {
+    display: flex;
+    justify-content: space-between; /* Empuja los elementos a los extremos */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.page-titles h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+}
+
+.page-titles h2 {
+    margin: 5px 0 0 0;
+    font-size: 1.1em;
+    color: #666;
+}
+
+.add-professor-button {
+    padding: 12px 25px;
+    background-color: #28a745; /* Color verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.add-professor-button:hover {
+    background-color: #218838;
+}
+
+
+
+
+.perfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
