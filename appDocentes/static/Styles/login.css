@@ -11,9 +11,9 @@ body {
 .container {
     display: flex;
     width: 100%;
-    max-width: 1200px;
+    max-width: 2000px;
     height: 100%;
-    max-height: 1200px;
+    max-height: 2000px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -124,4 +124,27 @@ body {
     font-size: 0.9rem;
     margin: 0;
     color: #666;
+}
+
+
+
+
+/* Estilo del enlace Regresar que va arriba */
+.back-link-form {
+    text-decoration: none;
+    color: #28a745; /* Color verde del botón de Iniciar sesión */
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.back-link-form:hover {
+    text-decoration: underline;
+}
+
+/* Ajuste del título para la página de recuperación */
+.login-box h2.welcome-title {
+    font-size: 1.8rem; /* Algo menor que el 2.5rem del título principal */
+    margin-bottom: 10px;
 }

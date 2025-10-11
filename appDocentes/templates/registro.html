@@ -9,78 +9,82 @@
     <title>Registro de Docentes</title>
     <link rel="stylesheet" href="{% static 'Styles/registro.css' %}">
 </head>
+
 <body>
     <div class="page-container">
         <header class="form-header">
-            <a href="#" class="back-link">&larr; Regresar</a>
+            <a href="{% url 'home' %}" class="back-link">&larr; Regresar</a>
             <div class="user-profile">
                 <img src="{% static 'img_user.png' %}" alt="Usuario">
             </div>
         </header>
 
-        <form action="#" method="post" class="data-form">
+        <form action="{% url 'registro' %}" method="post" class="data-form">
             {% csrf_token %}
             <section class="form-section">
                 <h2>Datos Personales</h2>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="nombre">Nombre(s)</label>
-                        <input type="text" id="nombre" name="nombre">
+                        <input type="text" id="nombre" name="Nombre">
                     </div>
                     <div class="form-group">
                         <label for="apellido_paterno">Apellido Paterno</label>
-                        <input type="text" id="apellido_paterno" name="apellido_paterno">
+                        <input type="text" id="apellido_paterno" name="ApellidoP">
                     </div>
                     <div class="form-group">
                         <label for="apellido_materno">Apellido Materno</label>
-                        <input type="text" id="apellido_materno" name="apellido_materno">
+                        <input type="text" id="apellido_materno" name="ApellidoM">
                     </div>
                     <div class="form-group">
                         <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+                        <input type="date" id="fecha_nacimiento" name="FechaNacimiento">
                     </div>
                     <div class="form-group">
                         <label for="cedula_profesional">Cédula Profesional</label>
-                        <input type="text" id="cedula_profesional" name="cedula_profesional">
+                        <input type="text" id="cedula_profesional" name="CedulaProfesional">
                     </div>
                     <div class="form-group">
                         <label for="grado_academico">Grado Académico</label>
-                        <select id="grado_academico" name="grado_academico">
-                            <option value="opcion1">Licenciatura</option>
-                            <option value="opcion2">Maestría</option>
-                            <option value="opcion3">Doctorado</option>
+                        <select id="grado_academico" name="GradoAcademico">
+                            <option value="">----</option>
+                            <option value="Licenciatura">Licenciatura</option>
+                            <option value="Maestría">Maestría</option>
+                            <option value="Doctorado">Doctorado</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="estado_civil">Estado Civil</label>
-                        <select id="estado_civil" name="estado_civil">
-                            <option value="opcion1">Casado</option>
-                            <option value="opcion2">Soltero</option>
-                            <option value="opcion3">Divorciado</option>
-                            <option value="opcion4">Viudo</option>
+                        <select id="estado_civil" name="EstadoCivil">
+                            <option value="">----</option>
+                            <option value="Casado">Casado</option>
+                            <option value="Soltero">Soltero</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="sexo">Sexo</label>
-                        <select id="sexo" name="sexo">
-                            <option value="opcion1">Hombre</option>
-                            <option value="opcion2">Mujer</option>
+                        <select id="sexo" name="Sexo">
+                            <option value="">----</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="estado_residencia">Estado de Residencia</label>
-                        <select id="estado_residencia" name="estado_residencia">
-                            <option value="opcion1">Tabasco</option>
-                            <option value="opcion2">Veracruz</option>
+                        <select id="estado_residencia" name="Residencia">
+                            <option value="">----</option>
+                            <option value="Tabasco">Tabasco</option>
+                            <option value="Veracruz">Veracruz</option>
+                            <option value="Chiapas">Chiapas</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="ciudad">Ciudad</label>
-                        <input type="text" id="ciudad" name="ciudad">
+                        <input type="text" id="ciudad" name="Ciudad">
                     </div>
                     <div class="form-group">
                         <label for="colonia">Colonia</label>
-                        <input type="text" id="colonia" name="colonia">
+                        <input type="text" id="colonia" name="Colonia">
                     </div>
                 </div>
             </section>
@@ -90,35 +94,38 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="matricula">Matrícula</label>
-                        <input type="text" id="matricula" name="matricula">
+                        <input type="text" id="matricula" name="claveDocente">
                     </div>
                     <div class="form-group">
                         <label for="puesto">Puesto</label>
-                        <select id="puesto" name="puesto">
-                            <option value="opcion1">Docente</option>
-                            <option value="opcion2">Administrativo</option>
-                            <option value="opcion3">Intendencia</option>
+                        <select id="puesto" name="Puesto">
+                            <option value="">----</option>
+                            <option value="Docente">Docente</option>
+                            <option value="Administrativo">Administrativo</option>
+                            <option value="Intendencia">Intendencia</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="division">División</label>
-                        <select id="division" name="division">
-                            <option value="opcion1">DACyTI</option>
-                            <option value="opcion2">DAIA</option>
-                            <option value="opcion3">DACB</option>
+                        <select id="division" name="idDivision_FK">
+                            <option value="">----</option>
+                            <option value="DACyTI">DACyTI</option>
+                            <option value="DAIA">DAIA</option>
+                            <option value="DACB">DACB</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="perfil">Perfil</label>
-                        <select id="perfil" name="perfil">
-                            <option value="opcion1">Tiempo Completo</option>
-                            <option value="opcion2">Medio Tiempo</option>
-                            <option value="opcion3">Por asignatura</option>
+                        <select id="perfil" name="Perfil">
+                            <option value="">----</option>
+                            <option value="Tiempo Completo">Tiempo Completo</option>
+                            <option value="Medio Tiempo">Medio Tiempo</option>
+                            <option value="Por Asignatura">Por asignatura</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="fecha_ingreso">Fecha de Ingreso</label>
-                        <input type="date" id="fecha_ingreso" name="fecha_ingreso">
+                        <input type="date" id="fecha_ingreso" name="FechaIngreso">
                     </div>
                 </div>
             </section>
@@ -128,15 +135,15 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="correo_institucional">Correo Institucional</label>
-                        <input type="email" id="correo_institucional" name="correo_institucional">
+                        <input type="email" id="correo_institucional" name="correoInstitucional">
                     </div>
                     <div class="form-group">
                         <label for="correo_electronico">Correo Electrónico</label>
-                        <input type="email" id="correo_electronico" name="correo_electronico">
+                        <input type="email" id="correo_electronico" name="correoPersonal">
                     </div>
                     <div class="form-group">
                         <label for="telefono">Número Telefónico</label>
-                        <input type="tel" id="telefono" name="telefono">
+                        <input type="tel" id="telefono" name="Telefono">
                     </div>
                 </div>
             </section>

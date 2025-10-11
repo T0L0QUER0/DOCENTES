@@ -16,14 +16,11 @@
             <h1>Bienvenido</h1>
             <h2>Aquí puedes gestionar todos los datos de forma sencilla</h2>
         </div>
-
-        <div> 
-            <form action="{% url 'registro' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="add-professor-button">Agregar Profesor</button>
-            </form>           
-        </div>              
-
+        <div class="page-button-container">
+            <a href="{% url 'registro' %}" class="add-professor-button">
+                Agregar Profesor
+            </a>
+        </div>
     </section>
 
     <section>
