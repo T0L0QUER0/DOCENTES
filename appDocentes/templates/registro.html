@@ -1,6 +1,9 @@
-{% load static  %}
+{% extends "base.html" %} 
 
+{% block title %}Docentes | Registro de Docentes{% endblock %}
 
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,9 +17,6 @@
     <div class="page-container">
         <header class="form-header">
             <a href="{% url 'home' %}" class="back-link">&larr; Regresar</a>
-            <div class="user-profile">
-                <img src="{% static 'img_user.png' %}" alt="Usuario">
-            </div>
         </header>
 
         <form action="{% url 'registro' %}" method="post" class="data-form">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="grado_academico">Grado Académico</label>
                         <select id="grado_academico" name="GradoAcademico">
-                            <option value="">----</option>
+                            <option value="">----------</option>
                             <option value="Licenciatura">Licenciatura</option>
                             <option value="Maestría">Maestría</option>
                             <option value="Doctorado">Doctorado</option>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label for="estado_civil">Estado Civil</label>
                         <select id="estado_civil" name="EstadoCivil">
-                            <option value="">----</option>
+                            <option value="">----------</option>
                             <option value="Casado">Casado</option>
                             <option value="Soltero">Soltero</option>
                         </select>
@@ -64,7 +64,7 @@
                     <div class="form-group">
                         <label for="sexo">Sexo</label>
                         <select id="sexo" name="Sexo">
-                            <option value="">----</option>
+                            <option value="">----------</option>
                             <option value="Hombre">Hombre</option>
                             <option value="Mujer">Mujer</option>
                         </select>
@@ -72,7 +72,7 @@
                     <div class="form-group">
                         <label for="estado_residencia">Estado de Residencia</label>
                         <select id="estado_residencia" name="Residencia">
-                            <option value="">----</option>
+                            <option value="">----------</option>
                             <option value="Tabasco">Tabasco</option>
                             <option value="Veracruz">Veracruz</option>
                             <option value="Chiapas">Chiapas</option>
@@ -85,6 +85,16 @@
                     <div class="form-group">
                         <label for="colonia">Colonia</label>
                         <input type="text" id="colonia" name="Colonia">
+                    </div>
+                    <div class="form-group">
+                        <label for="Discapacidad">Discapacidad</label>
+                        <select id="Discapacidad" name="Discapacidad">
+                            <option value="">----------</option>
+                            <option value="Ninguna">Ninguna</option>
+                            <option value="Visual">Visual</option>
+                            <option value="Fisica">Fisica</option>
+                            <option value="Auditiva">Auditiva</option>
+                        </select>
                     </div>
                 </div>
             </section>
@@ -99,25 +109,21 @@
                     <div class="form-group">
                         <label for="puesto">Puesto</label>
                         <select id="puesto" name="Puesto">
-                            <option value="">----</option>
+                            <option value="">----------</option>
                             <option value="Docente">Docente</option>
                             <option value="Administrativo">Administrativo</option>
                             <option value="Intendencia">Intendencia</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="division">División</label>
-                        <select id="division" name="idDivision_FK">
-                            <option value="">----</option>
-                            <option value="DACyTI">DACyTI</option>
-                            <option value="DAIA">DAIA</option>
-                            <option value="DACB">DACB</option>
-                        </select>
+                        <label for="{{ form.division.id_for_label }}">División</label>
+                        {{ form.division }} 
                     </div>
+
                     <div class="form-group">
                         <label for="perfil">Perfil</label>
                         <select id="perfil" name="Perfil">
-                            <option value="">----</option>
+                            <option value="">----------</option>
                             <option value="Tiempo Completo">Tiempo Completo</option>
                             <option value="Medio Tiempo">Medio Tiempo</option>
                             <option value="Por Asignatura">Por asignatura</option>
@@ -127,6 +133,57 @@
                         <label for="fecha_ingreso">Fecha de Ingreso</label>
                         <input type="date" id="fecha_ingreso" name="FechaIngreso">
                     </div>
+                    <div class="form-group">
+                        <label for="OtroEmpleo">Otro Empleo</label>
+                        <select id="OtroEmpleo" name="OtroEmpleo">
+                            <option value="">----------</option>
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoría</label>
+                        <select id="categoria" name="categoria">
+                            <option value="">----------</option>
+                            <option values="A">A</option>
+                            <option values="B">B</option>
+                            <option values="C">C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="base">Base</label>
+                        <select id="base" name="base">
+                            <option value="">----------</option>
+                            <option values="A">A</option>
+                            <option values="B">B</option>
+                            <option values="C">C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="">----------</option>
+                            <option values="A">A</option>
+                            <option values="B">B</option>
+                            <option values="C">C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tutorado">Tutoría</label>
+                        <select id="tutorado" name="tutorado">
+                            <option value="">----------</option>
+                            <option values="Si">Si</option>
+                            <option values="No">No</option>
+                        </select>
+                    </div> 
+                    <div class="form-group">
+                        <label for="{{ form.ProgramaEducativo.id_for_label }}">Programa Educativo</label>
+                        {{ form.programaE }} 
+                    </div>   
+                    <div class="form-group">
+                        <label for="{{ form.AreaConocimiento.id_for_label }}">Area de Conocimiento</label>
+                        {{ form.areaC }} 
+                    </div>   
                 </div>
             </section>
 
@@ -145,6 +202,10 @@
                         <label for="telefono">Número Telefónico</label>
                         <input type="tel" id="telefono" name="Telefono">
                     </div>
+                    <div class="form-group">
+                        <label for="cuentaTeams">Cuenta de Teams</label>
+                        <input type="email" id="cuentaTeams" name="cuentaTeams">
+                    </div>
                 </div>
             </section>
 
@@ -155,3 +216,5 @@
     </div>
 </body>
 </html>
+
+{% endblock %}  

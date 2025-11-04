@@ -1,118 +1,122 @@
-{% load static  %}
+{% extends "base.html" %} 
 
+{% block title %}Docentes | Vista Principal{% endblock %}
+
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tablas</title>
+    <title>Bienvenido</title>
     <link rel="stylesheet" href="{% static 'Styles/home.css' %}">
 </head>
 
 <body>
-
+    
     <section class="page-header">
         <div class="page-titles">
             <h1>Bienvenido</h1>
             <h2>Aquí puedes gestionar todos los datos de forma sencilla</h2>
         </div>
-        <div class="page-button-container">
+        <div>
             <a href="{% url 'registro' %}" class="add-professor-button">
                 Agregar Profesor
             </a>
         </div>
     </section>
 
-    <section>
-        
-        <div class="filters-container-horizontal">
-            <div class="filter-box-horizontal">
-                <label>
-                    <input type="checkbox" name="filtro1" value="opcion1"> Categoría
-                </label>
-                <label>
-                    <input type="checkbox" name="filtro1" value="opcion2"> Puesto
-                </label>
-                <label>
-                    <input type="checkbox" name="filtro1" value="opcion3"> Sexo H/M
-                </label>
-            </div>
-            <div class="filter-box-horizontal">
-                <label>
-                    <input type="checkbox" name="filtro2" value="opcionA"> Tutoría
-                </label>
-                <label>
-                    <input type="checkbox" name="filtro2" value="opcionB"> Correo Institucional
-                </label>
-                <label>
-                    <input type="checkbox" name="filtro2" value="opcionC"> Grado Académico actual
-                </label>
-            </div>
-        </div>
+    <section class="filter-section">
+        <form method="GET" action="{% url 'home' %}" class="filter-form">
+            <label for="puesto">Puesto:</label>
+            <select name="puesto" id="puesto">
+                <option value="">-- Todos los Puestos --</option>
+                {% for puesto in opciones_puesto %}
+                    <option value="{{ puesto }}" {% if puesto == puesto_seleccionado %}selected{% endif %}>
+                        {{ puesto }}
+                    </option>
+                {% endfor %}
+            </select>
 
+            <label for="perfil">Perfil:</label>
+            <select name="perfil" id="perfil">
+                <option value="">-- Todos los Perfiles --</option>
+                {% for clave, etiqueta in opciones_perfil %}
+                    <option value="{{ clave }}" {% if clave == perfil_seleccionado %} selected{% endif %}>
+                        {{ etiqueta }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn-filter">Aplicar Filtros</button>
+            
+            <a href="{% url 'home' %}" class="btn-clear-filter">Limpiar Filtros</a>
+        </form>
     </section>
+
     <section>
         <div class="table-container">
-        <div class="header-row">
-            <div class="fixed-column-header">
-                Clave docente
+            
+            <div class="fixed-column-wrapper">
+                <table class="fixed-table">
+                    <thead>
+                        <tr>
+                            <th>Clave docente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for docente in docentes %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'docente_edit' clave_docente=docente.claveDocente %}" class="edit-link">
+                                    {{ docente.claveDocente }}
+                                </a>
+                                
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            <div class="scrollable-content-header">
-                <div class="data-column-header">Nombre</div>
-                <div class="data-column-header">Apellido paterno</div>
-                <div class="data-column-header">Apellido materno</div>
-                <div class="data-column-header">Base</div>
-                <div class="data-column-header">PTC/MT/A</div>
-                <div class="data-column-header">Fecha de ingreso</div>
-                <div class="data-column-header">Antigüedad</div>
-            </div>
-        </div>
-        
-        <div class="table-row">
-            <div class="fixed-column">
-                CLAVE001
-            </div>
-            <div class="scrollable-content">
-                <div class="data-column">Juan</div>
-                <div class="data-column">Pérez</div>
-                <div class="data-column">Gómez</div>
-                <div class="data-column">B1</div>
-                <div class="data-column">PTC</div>
-                <div class="data-column">2010-08-15</div>
-                <div class="data-column">15</div>
-            </div>
-        </div>
 
-        <div class="table-row">
-            <div class="fixed-column">
-                CLAVE002
-            </div>
-            <div class="scrollable-content">
-                <div class="data-column">María</div>
-                <div class="data-column">López</div>
-                <div class="data-column">Hernández</div>
-                <div class="data-column">B2</div>
-                <div class="data-column">MT</div>
-                <div class="data-column">2015-05-20</div>
-                <div class="data-column">10</div>
-            </div>
-        </div>
-        
-        <div class="table-row">
-            <div class="fixed-column">
-                CLAVE003
-            </div>
-            <div class="scrollable-content">
-                <div class="data-column">Carlos</div>
-                <div class="data-column">García</div>
-                <div class="data-column">Martínez</div>
-                <div class="data-column">B1</div>
-                <div class="data-column">A</div>
-                <div class="data-column">2020-01-10</div>
-                <div class="data-column">5</div>
+            <div class="scrollable-content-wrapper">
+                <table class="scrollable-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Puesto</th>
+                            <th>Base</th>
+                            <th>Perfil</th>
+                            <th>Fecha de ingreso</th>
+                            <th>Antigüedad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for docente in docentes %}
+                        <tr>
+                            <td>{{ docente.Nombre }}</td>
+                            <td>{{ docente.ApellidoP }}</td>
+                            <td>{{ docente.ApellidoM }}</td>
+                            <td>{{ docente.Puesto }}</td> 
+                            <td>{{ docente.base }}</td>
+                            <td>{{ docente.get_Perfil_display }}</td> 
+                            <td>{{ docente.FechaIngreso|date:"Y-m-d"}}</td>
+                            <td>{{ docente.antiguedad }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" style="text-align: center;">No hay docentes registrados todavía.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
-</div>
 </body>
 </html>
+
+{% endblock %}

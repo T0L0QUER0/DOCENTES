@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.login, name="login"),
     path('recup_pass/', views.recup_pass, name="recup_pass"),
     path('home/', views.home, name="home"),
-    path('registro/', views.registro, name="registro")
+    path('registro/', views.registro, name="registro"),
+    path('editar/<str:clave_docente>/', views.edicion_docente, name='docente_edit')
 ] 

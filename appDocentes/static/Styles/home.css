@@ -1,129 +1,18 @@
+/*
+ * Archivo Styles/home.css (Versión Final, Optimizada para Doble Tabla)
+ * Elimina todos los estilos relacionados con .header-row, .fixed-column, .filter-box, etc.
+ */
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
 }
 
-.table-container {
-    display: flex;
-    flex-direction: column; /* Apila las filas verticalmente */
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header-row,
-.table-row {
-    display: flex;
-    border-bottom: 1px solid #ddd;
-}
-
-.header-row {
-    background-color: #f7f7f7;
-    font-weight: bold;
-}
-
-.fixed-column-header,
-.data-column-header,
-.fixed-column,
-.data-column {
-    padding: 10px;
-    border-right: 1px solid #ddd;
-    box-sizing: border-box; /* Para incluir el padding y el borde en el ancho */
-}
-
-/* Estilo para la primera columna fija */
-.fixed-column-header,
-.fixed-column {
-    flex-basis: 150px; /* Ancho fijo para la columna de clave docente */
-    flex-shrink: 0; /* Evita que se encoja */
-    background-color: #fefefe;
-}
-
-/* Contenedor con scroll para el resto de los datos */
-.scrollable-content-header,
-.scrollable-content {
-    display: flex; /* Muestra las columnas una al lado de la otra */
-    overflow-x: auto;
-}
-
-.columna_fija{
-    flex-basis: 150px; /* Ancho fijo para la columna de clave docente */
-    flex-shrink: 0; /* Evita que se encoja */
-    background-color: #fefefe;
-    padding: 10px;
-    border-right: 1px solid #ddd;
-    box-sizing: border-box; /* Para incluir el padding y el borde en el ancho */
-}
-
-/* Estilos de las columnas de datos */
-.data-column-header,
-.data-column {
-    flex-basis: 150px; /* Ancho para las columnas de datos */
-    flex-shrink: 0;
-}
-
-
-
-.filters-container-horizontal {
-    display: flex;
-    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea si no caben */
-    gap: 15px; /* Espacio entre las cajas de filtro */
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-}
-
-.filter-box-horizontal {
-    display: flex; /* Alinea las opciones dentro de cada caja */
-    gap: 10px;
-    align-items: center;
-}
-
-.filter-box-horizontal label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 20px; /* Borde más redondeado para un look de "pastilla" */
-    background-color: #fff;
-    transition: all 0.2s ease-in-out;
-}
-
-/* Oculta la casilla de verificación original */
-.filter-box-horizontal input[type="checkbox"] {
-    display: none;
-}
-
-/* Estilo para la "pastilla" de la etiqueta cuando está seleccionada */
-.filter-box-horizontal input[type="checkbox"]:checked + span {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
-}
-
-/* Estilo para el texto dentro del label (opcional) */
-.filter-box-horizontal label span {
-    font-size: 0.9em;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* --- Estilos del Encabezado (Page Header) --- */
 .page-header {
     display: flex;
-    justify-content: space-between; /* Empuja los elementos a los extremos */
-    align-items: center; /* Alinea los elementos verticalmente al centro */
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 2px solid #ddd;
     padding-bottom: 20px;
     margin-bottom: 30px;
@@ -143,7 +32,7 @@ body {
 
 .add-professor-button {
     padding: 12px 25px;
-    background-color: #28a745; /* Color verde */
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
@@ -152,18 +41,155 @@ body {
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
+    text-decoration: none; 
+    display: inline-block; 
 }
 
 .add-professor-button:hover {
     background-color: #218838;
 }
 
+/* --- ESTILOS DE LA TABLA (MÉTODO DE DOBLE TABLA) --- */
 
-
-
-.perfil {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+/* 1. Contenedor principal: Activa Flexbox para poner las dos tablas lado a lado */
+.table-container {
+    display: flex; 
+    max-width: 100%;
+    margin: 20px auto;
     border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Estilos base para ambas tablas */
+.fixed-table, .scrollable-table {
+    border-collapse: collapse; 
+    width: 100%;
+}
+
+/* 3. Columna fija (Clave Docente) */
+.fixed-column-wrapper {
+    flex-shrink: 0; /* IMPIDE que se encoja */
+    background-color: #f7f7f7; 
+    border-right: 1px solid #ccc;
+    z-index: 10;
+}
+
+.fixed-table th, .fixed-table td {
+    /* Mismo ancho fijo para todas las celdas de la columna fija */
+    width: 150px; 
+    padding: 10px 15px;
+    text-align: left;
+    /* Asegura que los bordes de las celdas estén alineados */
+    border-bottom: 1px solid #ddd; 
+}
+/* Quita el borde inferior de la última fila de encabezado */
+.fixed-table thead th {
+    border-bottom: 2px solid #ccc;
+}
+
+/* 4. Contenido scrollable */
+.scrollable-content-wrapper {
+    overflow-x: auto; /* ACTIVA EL SCROLL HORIZONTAL */
+    flex-grow: 1; /* Permite que tome el espacio disponible */
+}
+
+.scrollable-table {
+    /* Define un ancho total para el área scrollable (8 columnas * 150px) = 1200px */
+    min-width: 1200px; 
+}
+
+.scrollable-table th, .scrollable-table td {
+    /* Mismo ancho fijo para todas las celdas scrollables */
+    width: 150px; 
+    padding: 10px 15px;
+    text-align: left;
+    white-space: nowrap; /* Evita que el texto de las celdas se envuelva */
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; 
+}
+
+/* Estilos de encabezado para ambas tablas */
+.fixed-table thead th, .scrollable-table thead th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    position: sticky; 
+    top: 0;
+    z-index: 5;
+}
+
+/* Alinear la altura de las filas */
+.fixed-table tr, .scrollable-table tr {
+    height: 40px; 
+}
+
+/* Eliminar el borde derecho de la última columna scrollable */
+.scrollable-table th:last-child, .scrollable-table td:last-child {
+    border-right: none;
+}
+
+
+
+
+
+
+
+
+
+
+/* --- Estilos para la Sección de Filtros --- */
+.filter-section {
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.filter-form {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.filter-form label {
+    font-weight: bold;
+    color: #555;
+}
+
+.filter-form select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    min-width: 150px;
+}
+
+.btn-filter, .btn-clear-filter {
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* Para el botón de limpiar que es un <a> */
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-filter {
+    background-color: #16b71e; /* Azul primario */
+    color: white;
+    border: none;
+}
+
+.btn-filter:hover {
+    background-color: #0056b3;
+}
+
+.btn-clear-filter {
+    background-color: #6c757d; /* Gris */
+    color: white;
+    border: none;
+}
+
+.btn-clear-filter:hover {
+    background-color: #5a6268;
 }

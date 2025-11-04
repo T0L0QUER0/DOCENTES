@@ -6,7 +6,8 @@ body {
 }
 
 .page-container {
-    max-width: 900px;
+    width: 100%;
+    max-width: 2000px;
     margin: 0 auto;
     background-color: #fff;
     border-radius: 8px;

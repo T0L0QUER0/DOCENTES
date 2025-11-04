@@ -1,0 +1,105 @@
+/* --- ESTILOS GENERALES Y LAYOUT --- */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; /* MUY IMPORTANTE: Elimina el margen por defecto del navegador */
+}
+
+/* Contenido principal, que se empujará cuando el menú se abra */
+#main {
+    transition: margin-left .5s; /* Animación suave: hace que el contenido se deslice en 0.5 segundos */
+    padding: 0; /* Asegura que el contenido empiece sin relleno extra */
+}
+
+/* Overlay (Fondo oscuro semi-transparente) */
+#menu-overlay {
+    display: none; /* Empieza oculto y se activa con JavaScript */
+    position: fixed; /* Permanece fijo aunque se haga scroll */
+    height: 100%; /* Cubre toda la altura de la ventana */
+    width: 100%; /* Cubre todo el ancho de la ventana */
+    top: 0;
+    left: 0;
+    background: #28a745; /* Color negro con 50% de transparencia */
+    z-index: 1000; /* Se coloca por encima del contenido principal, pero debajo del menú */
+}
+
+/* --- BARRA SUPERIOR (Top Navigation Bar) --- */
+
+.top-nav-bar {
+    display: flex; /* Utiliza Flexbox para alinear elementos (menú y botón) */
+    justify-content: space-between; /* Distribuye el espacio entre el botón de menú y el contenido de la derecha */
+    align-items: center; /* Centra los elementos verticalmente */
+    padding: 10px 20px; /* Relleno interior: 10px arriba/abajo, 20px izquierda/derecha */
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ccc;
+    position: sticky; /* Permite que la barra se quede arriba al hacer scroll */
+    top: 0;
+    z-index: 500; /* Asegura que la barra esté por encima del contenido */
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer; /* Muestra el cursor de mano al pasar por encima */
+    background-color: transparent; /* Fondo transparente */
+    color: #333;
+    padding: 10px 15px;
+    border: none;
+    font-weight: bold;
+}
+
+.openbtn:hover {
+    color: #000; /* El texto se oscurece ligeramente al pasar el ratón */
+}
+
+/* --- MENÚ LATERAL (Sidebar) --- */
+
+.sidebar {
+    height: 100%; /* Ocupa toda la altura de la ventana (fixed) */
+    width: 0; /* Empieza oculto: el JavaScript cambia esto a 250px para mostrarlo */
+    position: fixed; /* Permanece fijo en la ventana */
+    z-index: 2000; /* Debe estar MUY por encima de todo (incluyendo el overlay) */
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden; /* Oculta cualquier contenido que se desborde horizontalmente */
+    transition: 0.5s; /* Animación de deslizamiento suave */
+    padding-top: 60px; /* Espacio superior para que no choque con el botón de cerrar */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5); /* Sombra para darle profundidad */
+}
+
+.sidebar a {
+    padding: 15px 8px 15px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block; /* Asegura que cada enlace ocupe toda la línea */
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: white;
+    background-color: #333; /* Cambia el fondo al pasar el ratón */
+}
+
+.sidebar .closebtn {
+    position: absolute; /* Posiciona el botón de cerrar dentro del sidebar */
+    top: 0;
+    right: 25px;
+    font-size: 36px; /* Letra grande para el ícono 'X' */
+    margin-left: 50px;
+}
+
+/* --- AJUSTES DEL CONTENIDO ESPECÍFICO --- */
+
+/* Wrapper del contenido específico dentro de base.html. Aquí se aplicará el padding lateral */
+.content-wrapper {
+    padding: 20px;
+}
+
+/* Evita que el page-header (el "Bienvenido...") tenga un margen superior redundante */
+.page-header {
+    margin-top: 0;
+    padding-left: 0; /* Como content-wrapper ya tiene padding de 20px */
+    padding-right: 0;
+    /* Los demás estilos de page-header pueden permanecer como estaban */
+}
