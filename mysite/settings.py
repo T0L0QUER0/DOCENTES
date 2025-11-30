@@ -81,15 +81,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'docente_django',
-        'USER': 'root',
-        'PASSWORD': 'Royalito1!',
-        'localhost': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command' : "SET sql_mode ='STRICT_TRANS_TABLES'"
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'app_profesores',
+        'USER': 'soporte',
+        'PASSWORD': 'Julian_421379',
+        'HOST': 'localhost',
+        'PORT': '5432', 
     }
 }
 
