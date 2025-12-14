@@ -19,7 +19,7 @@ body {
     width: 100%; /* Cubre todo el ancho de la ventana */
     top: 0;
     left: 0;
-    background: #28a745; /* Color negro con 50% de transparencia */
+    background: rgba(0, 0, 0, 0.5); /* Color negro con 50% de transparencia */
     z-index: 1000; /* Se coloca por encima del contenido principal, pero debajo del menú */
 }
 
@@ -68,12 +68,13 @@ body {
 }
 
 .sidebar a {
-    padding: 15px 8px 15px 32px;
+    padding: 15px 10px 15px 20px;
     text-decoration: none;
     font-size: 18px;
     color: #818181;
     display: block; /* Asegura que cada enlace ocupe toda la línea */
     transition: 0.3s;
+    box-sizing: border-box;
 }
 
 .sidebar a:hover {
@@ -102,4 +103,34 @@ body {
     padding-left: 0; /* Como content-wrapper ya tiene padding de 20px */
     padding-right: 0;
     /* Los demás estilos de page-header pueden permanecer como estaban */
+}
+
+
+/* Estilo para los iconos dentro del menú */
+.sidebar a i {
+    margin-right: 10px;
+    width: 20px; /* Asegura alineación si usas diferentes iconos */
+    text-align: center;
+}
+
+
+
+/* Estilo específico para el botón de Cerrar Sesión */
+.sidebar .logout-link {
+    /* Ya no necesita position: absolute; Flexbox lo maneja */
+    
+    /* Estilos visuales para destacarlo */
+    background-color: #f4f4f4; 
+    color: #cc0000; 
+    border-top: 1px solid #ddd;
+    /* Asegura que el padding interno no cambie el tamaño del sidebar */
+    box-sizing: border-box; 
+    padding: 15px 10px 15px 20px;/* Ajusta el padding para que coincida con otros enlaces */
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.sidebar .logout-link:hover {
+    background-color: #ddd;
 }

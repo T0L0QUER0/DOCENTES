@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if es_edicion %}{{ titulo }}{% else %}Agregar Proyecto{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Styles/registro.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="page-container">
+        <header class="form-header">
+            <a href="{% url 'lista_proyectos' %}" class="back-link">&larr; Regresar a Proyectos</a>
+        </header>
+
+        <form method="post" class="data-form">
+            {% csrf_token %}
+            
+            <section class="form-section">
+                <h2>{{ titulo }}</h2> 
+                
+                <div class="form-grid">
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;"> 
+                        <label for="{{ form.claveDocente.id_for_label }}">{{ form.claveDocente.label }}</label>
+                        {{ form.claveDocente }}
+                        {{ form.claveDocente.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.IdProyecto_Base.id_for_label }}">{{ form.IdProyecto_Base.label }}</label>
+                        {{ form.IdProyecto_Base }}
+                        {{ form.IdProyecto_Base.errors }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.Nombre.id_for_label }}">{{ form.Nombre.label }}</label>
+                        {{ form.Nombre }}
+                        {{ form.Nombre.errors }}
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="{{ form.Descripcion.id_for_label }}">{{ form.Descripcion.label }}</label>
+                        {{ form.Descripcion }}
+                        {{ form.Descripcion.errors }}
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="{{ form.Colaboradores.id_for_label }}">{{ form.Colaboradores.label }}</label>
+                        {{ form.Colaboradores }}
+                        <small class="help-text">Mantén presionada la tecla Ctrl/Cmd para seleccionar múltiples docentes.</small>
+                        {{ form.Colaboradores.errors }}
+                    </div>
+                    
+                </div> 
+            </section>
+
+            <div class="form-actions">
+                <button type="submit" class="save-button">Guardar Proyecto</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

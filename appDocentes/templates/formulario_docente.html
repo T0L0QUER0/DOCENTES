@@ -1,0 +1,65 @@
+<div class="page-container">
+    <header class="form-header">
+        <a href="{% url 'home' %}" class="back-link">&larr; Regresar</a>
+    </header>
+
+    <form action="{{ action_url }}" method="post" class="data-form">
+        {% csrf_token %}
+        
+        <section class="form-section">
+            <h2>Datos Personales</h2>
+            <div class="form-grid">
+                {% for field in form %}
+                    {% if field.name in 'Nombre,ApellidoP,ApellidoM,FechaNacimiento,CedulaProfesional,GradoAcademico,EstadoCivil,Sexo,Residencia,Ciudad,Colonia,Discapacidad' %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                                <small style="color: red;">{{ field.errors }}</small>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+        
+        <section class="form-section">
+            <h2>Datos Laborales</h2>
+            <div class="form-grid">
+                 {% for field in form %}
+                    {% if field.name in 'claveDocente,Puesto,division,Perfil,FechaIngreso,OtroEmpleo,categoria,base,status,tutorado,programaE,areaC' %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                                <small style="color: red;">{{ field.errors }}</small>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h2>Datos de Contacto</h2>
+            <div class="form-grid">
+                 {% for field in form %}
+                    {% if field.name in 'correoInstitucional,correoPersonal,Telefono,cuentaTeams' %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                                <small style="color: red;">{{ field.errors }}</small>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+
+
+        <div class="form-actions">
+            <button type="submit" class="save-button">{{ button_text }}</button>
+        </div>
+    </form>
+</div>

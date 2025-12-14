@@ -1,5 +1,5 @@
 from django import forms
-from .models import Docente, Division
+from .models import Docente, Division, Proyectos
 
 class DocenteForm(forms.ModelForm):
     class Meta:
@@ -89,4 +89,17 @@ class DocenteEdit(forms.ModelForm):
         widgets = {
             'FechaNacimiento': forms.DateInput(format=('%Y-%m-%d'), attrs={'type': 'date'}),
             'FechaIngreso': forms.DateInput(format=('%Y-%m-%d'), attrs={'type': 'date'}),
+        }
+
+
+
+
+
+class ProyectoInvestigacionForm(forms.ModelForm):
+    class Meta:
+        model = Proyectos
+        fields = ['claveDocente', 'IdProyecto_Base', 'Nombre', 'Descripcion', 'Colaboradores'] 
+        
+        widgets = {
+            'Descripcion': forms.Textarea(attrs={'rows': 4}), 
         }

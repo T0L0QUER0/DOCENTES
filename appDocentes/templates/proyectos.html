@@ -1,0 +1,98 @@
+{% extends "base.html" %} 
+
+{% block title %}Proyectos de Investigación{% endblock %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'Styles/home.css' %}"> 
+{% endblock %}
+
+{% block content %}
+    
+    <section class="page-header">
+        <div class="page-titles">
+            <h1>Proyectos de Investigación</h1>
+            <h2>Gestión de proyectos de investigación registrados.</h2>
+        </div>
+        <div class="div-button">
+            <a href="{% url 'agregar_proyecto' %}" class="add-professor-button">
+                Agregar Proyecto
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="table-container">
+            
+            <div class="fixed-column-wrapper">
+                <table class="fixed-table">
+                    <thead>
+                        <tr>
+                            <th>ID Compuesto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for proyecto in proyectos %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'editar_proyecto' pk=proyecto.ID_Compuesto %}" class="edit-link">
+                                    {{ proyecto.ID_Compuesto }}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="scrollable-content-wrapper">
+                <table class="scrollable-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Docente Líder</th>
+                            <th>Descripción</th>
+                            <th>Colaboradores</th>
+                            <th>Acciones</th>  </tr>
+                    </thead>
+                    <tbody>
+                        {% for proyecto in proyectos %}
+                        <tr>
+                            <td>{{ proyecto.Nombre }}</td>
+                            <td>{{ proyecto.claveDocente.Nombre }} {{ proyecto.claveDocente.ApellidoP }}</td>
+                            <td>{{ proyecto.Descripcion|truncatechars:100 }}</td>
+                            <td>
+                                {% for colaborador in proyecto.Colaboradores.all %}
+                                    {{ colaborador.Nombre|slice:":1" }}. {{ colaborador.ApellidoP }}
+                                    {% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                    N/A
+                                {% endfor %}
+                            </td>
+                            
+                            <td>
+                                <form method="post" action="{% url 'eliminar_proyecto' pk=proyecto.ID_Compuesto %}"     style="display: inline-block;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-link" 
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar el proyecto {{ proyecto.ID_Compuesto }}?');">
+                                        <i class="fa-solid fa-trash"></i> 
+                                    </button>
+                                </form>
+
+                                <a href="{% url 'editar_proyecto' pk=proyecto.ID_Compuesto %}" class="edit-link">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align: center;">No hay proyectos de investigación registrados todavía.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
