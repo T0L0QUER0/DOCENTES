@@ -20,17 +20,14 @@
                 <h1 class="welcome-title">¡Le damos la bienvenida!</h1>
                 <p class="login-instruction">Inicie sesión en su cuenta</p>
                 <form action="#" method="post" class="login-form">
+                    {% csrf_token %}
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" id="email" name="email" class="form-input" required>
                     
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" id="password" name="password" class="form-input" required>
-                    <a href="{% url 'recup_pass' %}" class="forgot-password">¿Olvidó su contraseña?</a>
-                </form>
-
-                <form action="{% url 'home' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="login-button">Iniciar sesión</button>
+                    <a href="{% url 'recup_pass' %}" class="forgot-password">¿Olvidó su contraseña?</a>                    
+                    <button type="submit" class="login-button">Iniciar sesión</button action="{% url 'home' %}" method="post">
                 </form>                
                 
                 <div class="no-account-box">

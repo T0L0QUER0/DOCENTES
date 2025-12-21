@@ -5,17 +5,38 @@ from django.shortcuts import render, get_object_or_404
 from .models import Docente, Division, ProgramaEducativo, AreaConocimiento, Proyectos
 from datetime import date
 from django.db import IntegrityError
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 
-def login(request):
-    if request.method == 'POST':
+@never_cache
+def login_view(request):
+    
+    if request.user.is_authenticated:
         return redirect('home')
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user) 
+            return redirect('home')
+        else:
+            error_message = "Credenciales incorrectas o cuenta inactiva."
+            return render(request, 'login.html', {'error': error_message})
     return render(request, 'login.html')
+
+def logout_usuario(request):
+    logout(request)
+    return redirect('login')
 
 def recup_pass(request):
     return render(request, 'recup_pass.html')
 
 # app/views.py
-
+@never_cache
+@login_required
 def home(request):
     hoy = date.today()
 
@@ -55,6 +76,8 @@ def home(request):
     
     return render(request, 'home.html', context)
 
+@never_cache
+@login_required
 def registro(request):
     if request.method == 'POST':
         form = DocenteForm(request.POST)
@@ -71,6 +94,8 @@ def registro(request):
     }
     return render(request, 'registro.html', contexto)
 
+@never_cache
+@login_required
 def edicion_docente(request, clave_docente):
     # 1. Obtener el objeto Docente o devolver un 404 si no existe
     docente = get_object_or_404(Docente, claveDocente=clave_docente)
@@ -98,7 +123,8 @@ def edicion_docente(request, clave_docente):
 
 
 
-
+@never_cache
+@login_required
 def lista_proyectos(request):
     proyectos = Proyectos.objects.all()
     context = {
@@ -107,7 +133,8 @@ def lista_proyectos(request):
     }
     return render(request, 'proyectos.html', context)
 
-
+@never_cache
+@login_required
 def agregar_proyecto_general(request):
     """Muestra el formulario para agregar un proyecto, incluyendo la selección del docente y colaboradores."""
     
@@ -141,7 +168,8 @@ def agregar_proyecto_general(request):
     return render(request, 'agregar_proyecto.html', context)
 
 
-
+@never_cache
+@login_required
 def editar_proyecto(request, pk):
     """
     Permite editar un proyecto existente.
@@ -179,7 +207,8 @@ def editar_proyecto(request, pk):
     return render(request, 'agregar_proyecto.html', context)
 
 
-
+@never_cache
+@login_required
 def eliminar_proyecto(request, pk):
     """
     Elimina un proyecto de investigación. 

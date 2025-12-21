@@ -81,15 +81,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'docente2',
-        'USER': 'root',
-        'PASSWORD': 'Royalito1!',
-        'localhost': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command' : "SET sql_mode ='STRICT_TRANS_TABLES'"
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'app_profesores_prueba',
+        'USER': 'soporte',
+        'PASSWORD': 'Julian_421379',
+        'HOST': 'localhost',
+        'PORT': '5432', 
     }
 }
 
@@ -135,3 +132,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTHENTICATION_BACKENDS = [
+    'appDocentes.backend.DivisionBackend',
+]
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+LOGIN_URL = '/'
