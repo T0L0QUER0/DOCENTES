@@ -56,14 +56,15 @@ class DivisionManager(BaseUserManager):
 
     
 class Division(AbstractBaseUser): 
-    claveDivision=models.CharField(max_length=100, primary_key=True)
+    claveDivision=models.CharField(max_length=100, primary_key=True, db_column='claveDivision')
     Nombre = models.CharField(max_length=100,null=True)
     Calle = models.CharField(max_length=100,null=True)
     Col = models.CharField(max_length=100,null=True)
     Ciudad = models.CharField(max_length=100,null=True)
     NumExt = models.CharField(max_length=10,null=True)
     CodigoP = models.CharField(max_length=10,null=True)
-    correo_administrador=models.CharField(max_length=100)
+    correo_administrador = models.EmailField(max_length=100, unique=True)
+
 
     @property
     def is_authenticated(self):
@@ -72,10 +73,10 @@ class Division(AbstractBaseUser):
     @property
     def is_anonymous(self):
         return False
-    
-    @property
-    def is_staff(self):
-        return self.is_admin 
+
+    @classmethod
+    def get_email_field_name(cls):
+        return 'correo_administrador'
 
     def has_perm(self, perm, obj=None):
         return self.is_admin 
@@ -84,7 +85,7 @@ class Division(AbstractBaseUser):
         return self.is_admin
 
     def __str__(self):
-        return self.claveDivision
+        return str(self.claveDivision)
     
 
     last_login = models.DateTimeField(null=True, blank=True)
@@ -93,9 +94,18 @@ class Division(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'correo_administrador'
+    @property
+    def email (self):
+        return self.correo_administrador
+    @property
+    def pk(self):
+        return self.claveDivision
     password = models.CharField(max_length=128, db_column='contraseña_administrador')
 
     objects = DivisionManager()
+
+    def get_session_auth_hash(self):
+        return self.password
     
 class ProgramaEducativo(models.Model):
     idPe = models.CharField(max_length=10, primary_key=True)

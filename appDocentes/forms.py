@@ -1,5 +1,7 @@
 from django import forms
 from .models import Docente, Division, Proyectos
+from django.contrib.auth.forms import PasswordResetForm
+
 
 class DocenteForm(forms.ModelForm):
     class Meta:
@@ -103,3 +105,7 @@ class ProyectoInvestigacionForm(forms.ModelForm):
         widgets = {
             'Descripcion': forms.Textarea(attrs={'rows': 4}), 
         }
+
+class PasswordReset(PasswordResetForm):
+    def get_users(self, email):
+        return Division.objects.filter(correo_administrador__iexact=email, is_active=True, ).distinct()

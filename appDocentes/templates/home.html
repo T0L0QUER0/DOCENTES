@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido</title>
@@ -28,7 +29,7 @@
     </section>
 
     <section class="filter-section">
-        <form method="GET" action="{% url 'home' %}" class="filter-form">
+        <form method="GET" action="{% url 'home' %}" class="filter-form" id="filtro-form">
             <label for="puesto">Puesto:</label>
             <select name="puesto" id="puesto">
                 <option value="">-- Todos los Puestos --</option>
@@ -56,8 +57,14 @@
     </section>
 
     <section>
-        <div class="table-container">
-            
+        <div class="table-container"
+             id="tabla-docentes" 
+             hx-get="{% url 'home' %}" 
+             hx-trigger="every 5s" 
+             hx-select="#tabla-docentes" 
+             hx-swap="outerHTML"
+             hx-include="#filtro-form">
+             
             <div class="fixed-column-wrapper">
                 <table class="fixed-table">
                     <thead>
@@ -119,4 +126,23 @@
 </body>
 </html>
 
+<script>
+    // Captura la posición antes de que el HTML se destruya
+    document.body.addEventListener('htmx:beforeSwap', function(evt) {
+        const scrollArea = document.querySelector('.scrollable-content-wrapper');
+        if (scrollArea) {
+            window.lastScrollLeft = scrollArea.scrollLeft;
+            window.lastScrollTop = scrollArea.scrollTop;
+        }
+    });
+
+    // Restaura la posición en el nuevo HTML
+    document.body.addEventListener('htmx:afterSwap', function(evt) {
+        const scrollArea = document.querySelector('.scrollable-content-wrapper');
+        if (scrollArea) {
+            scrollArea.scrollLeft = window.lastScrollLeft;
+            scrollArea.scrollTop = window.lastScrollTop;
+        }
+    });
+</script>
 {% endblock %}
