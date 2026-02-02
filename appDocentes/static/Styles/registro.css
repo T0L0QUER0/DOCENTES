@@ -110,3 +110,13 @@ body {
 .save-button:hover {
     background-color: #218838;
 }
+
+
+.campo-bloqueado input:disabled{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}

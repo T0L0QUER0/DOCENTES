@@ -148,3 +148,27 @@ body {
     font-size: 1.8rem; /* Algo menor que el 2.5rem del título principal */
     margin-bottom: 10px;
 }
+/* --- Estilos específicos para la vista de Confirmación de Email --- */
+
+/* Contenedor del Icono (El sobre azul) */
+.email-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.email-icon-wrapper img {
+    width: 120px; /* Tamaño del sobre de la imagen */
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+/* La caja blanca redondeada de la imagen */
+.confirmation-box {
+    border: 2px solid #000; /* Borde negro fino como en la imagen */
+    border-radius: 80px;    /* Bordes muy redondeados */
+    padding: 60px 50px;
+    text-align: center;
+    background-color: #f6010100;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}

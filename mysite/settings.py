@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    #'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -161,3 +161,5 @@ DEFAULT_FROM_EMAIL = 'Soporte Gestión Docente <soporte@ujat.mx.prueba>'
 PASSWORD_RESET_TIMEOUT=3600
 
 AUTH_USER_MODEL = 'appDocentes.Division'
+
+PASSWORD_RESET_CONFIRM_REDIRECT = 'login'

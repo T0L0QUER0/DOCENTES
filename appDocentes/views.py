@@ -103,7 +103,7 @@ def edicion_docente(request, clave_docente):
     if request.method == 'POST':
         # Cuando se envía el formulario:
         # Instanciar el formulario con los datos POST y la instancia del docente existente
-        form = DocenteForm(request.POST, instance=docente)
+        form = DocenteEdit(request.POST, instance=docente)
         
         if form.is_valid():
             # El form.save() actualiza la instancia existente

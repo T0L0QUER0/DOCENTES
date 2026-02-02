@@ -30,7 +30,11 @@
                     {% if field.name in 'claveDocente,Puesto,division,Perfil,FechaIngreso,OtroEmpleo,categoria,base,status,tutorado,programaE,areaC' %}
                         <div class="form-group">
                             {{ field.label_tag }}
-                            {{ field }}
+                            {% if field.name == 'claveDocente' %}
+                                <input type="text" name="claveDocente" value="{{ field.value }}">
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
                             {% if field.errors %}
                                 <small style="color: red;">{{ field.errors }}</small>
                             {% endif %}
