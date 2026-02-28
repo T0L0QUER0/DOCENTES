@@ -31,7 +31,7 @@
                         <div class="form-group">
                             {{ field.label_tag }}
                             {% if field.name == 'claveDocente' %}
-                                <input type="text" name="claveDocente" value="{{ field.value }}">
+                                <input type="text" name="claveDocente" value="{{ field.value }}" readonly>
                             {% else %}
                                 {{ field }}
                             {% endif %}
