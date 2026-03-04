@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Docentes | Registro de Docentes{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Styles/registro.css' %}">
+{% endblock %}
+
+{% block content %}
+    
+    {% url 'registro' as url_registro %}
+
+    {# Invocamos la plantilla compartida #}
+    {% include 'formulario_docente.html' with action_url=url_registro button_text='Registrar Personal' form=form %}
+
+{% endblock content %}

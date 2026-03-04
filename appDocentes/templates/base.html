@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gesto-UJAT{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'Styles/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="menu-overlay" onclick="closeNav()"></div>
+    
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        
+        <a href="{% url 'home' %}"><i class="fa-solid fa-house-chimney"></i> Inicio</a>
+        <a href="{% url 'registro' %}" class="{% if request.path == '/registro/' %}active{% endif %}"><i class="fa-solid fa-user-plus"></i> Registro de Docentes</a>
+        <a href="{% url 'lista_proyectos' %}" class="{% if 'proyectos' in request.path %}active{% endif %}"><i class="fa-solid fa-flask-vial"></i> Proyectos de Investigación</a>
+        <!-- <a href="#"><i class="fa-solid fa-gear"></i> Configuración</a> -->
+        
+        <a href="{% url 'login' %}" class="logout-link">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+        </a>
+        </div>
+
+    <div id="main">
+        
+        <header>
+            <button class="openbtn" onclick="openNav()">☰ Gesto-UJAT</button>
+        </header>
+
+        <div class="content-wrapper">
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            <i class="fa-solid fa-check-circle"></i> {{ message }}
+                            <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </div> 
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.getElementById("menu-overlay").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("menu-overlay").style.display = "none";
+        }
+    </script>
+
+    <script>
+        // Espera 5 segundos (5000ms) y oculta los mensajes automáticamente
+        setTimeout(function() {
+            let messages = document.querySelector('.messages-container');
+            if (messages) {
+                messages.style.transition = "opacity 0.5s ease";
+                messages.style.opacity = "0";
+                setTimeout(() => messages.remove(), 500); // Lo borra del HTML
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

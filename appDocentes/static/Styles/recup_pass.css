@@ -1,0 +1,36 @@
+/* Estilo del enlace Regresar en la parte superior del formulario */
+.form-navigation {
+    margin-bottom: 40px;
+}
+
+.back-link-form {
+    text-decoration: none;
+    color: #28a745; /* Color verde del sistema */
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.description-text {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95em;
+}
+
+/* El botón 'Enviar' usa el mismo estilo que el botón 'Iniciar sesión' */
+.submit-button {
+    padding: 12px 25px;
+    background-color: #28a745; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+    width: 100%; /* Para que ocupe todo el ancho */
+}
+
+.submit-button:hover {
+    background-color: #218838;
+}

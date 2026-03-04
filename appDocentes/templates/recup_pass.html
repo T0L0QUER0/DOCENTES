@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="{% static 'Styles/login.css' %}"> 
+</head>
+<body>
+    <div class="container">
+        
+        <div class="image-section">
+            <img src="{% static 'img_login.jpg' %}" alt="Edificio institucional">
+        </div>
+
+        <div class="login-section">
+            <div class="login-box">
+                
+                <a href="{% url 'login' %}" class="back-link-form">&larr; Regresar</a>
+                
+                <h2 class="welcome-title">Recuperar Contraseña</h2>
+                <p class="login-instruction">
+                    Ingresa tu dirección de correo electrónico. Te enviaremos un mensaje para restablecerla.
+                </p>
+
+                <form method="post" action="#" class="login-form">
+                    {% csrf_token %}
+
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+
+                    <button type="submit" class="login-button">Enviar</button>
+                </form>
+                
+                </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Editar Docente | {{ docente.Nombre }} {{ docente.ApellidoP }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Styles/registro.css' %}">
+{% endblock %}
+
+{% block content %}
+    
+    {% url 'docente_edit' docente.claveDocente as url_final %}
+
+    {% include 'formulario_docente.html' with action_url=url_final button_text='Guardar Cambios' form=form %}
+
+{% endblock content %}
