@@ -132,7 +132,7 @@ body {
 /* Estilo del enlace Regresar que va arriba */
 .back-link-form {
     text-decoration: none;
-    color: #28a745; /* Color verde del botón de Iniciar sesión */
+    color: #28a745; 
     font-weight: bold;
     display: inline-block;
     margin-bottom: 25px;
@@ -143,14 +143,14 @@ body {
     text-decoration: underline;
 }
 
-/* Ajuste del título para la página de recuperación */
+
 .login-box h2.welcome-title {
-    font-size: 1.8rem; /* Algo menor que el 2.5rem del título principal */
+    font-size: 1.8rem; 
     margin-bottom: 10px;
 }
 /* --- Estilos específicos para la vista de Confirmación de Email --- */
 
-/* Contenedor del Icono (El sobre azul) */
+
 .email-icon-wrapper {
     display: flex;
     justify-content: center;
@@ -158,15 +158,15 @@ body {
 }
 
 .email-icon-wrapper img {
-    width: 120px; /* Tamaño del sobre de la imagen */
+    width: 120px; 
     height: auto;
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
-/* La caja blanca redondeada de la imagen */
+
 .confirmation-box {
-    border: 2px solid #000; /* Borde negro fino como en la imagen */
-    border-radius: 80px;    /* Bordes muy redondeados */
+    border: 2px solid #000; 
+    border-radius: 80px;    
     padding: 60px 50px;
     text-align: center;
     background-color: #f6010100;
