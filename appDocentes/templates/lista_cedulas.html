@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Cédulas Profesionales - Gesto-UJAT{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Styles/home.css' %}">
+{% endblock %}
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <div class="page-titles">
+            <h1>Cédulas Profesionales</h1>
+            <h2>Docente: {{ docente.Nombre }} {{ docente.ApellidoPaterno }}</h2>
+        </div>
+        <a href="{% url 'agregar_cedula' docente.claveDocente %}" class="add-professor-button">
+            + Agregar Cédula
+        </a>
+        
+    </div>
+
+    <div>
+        <a href="{% url 'home' %}" class="back-link">&larr; Regresar</a>
+    </div>
+
+    <div class="table-container" style="display: block; overflow-x: auto;">
+        <table class="scrollable-table" style="min-width: 100%; width: 100%;">
+            <thead>
+                <tr>
+                    <th>Número de Cédula</th>
+                    <th>Grado / Título</th>
+                    <th>Institución</th>
+                    <th>Fecha de Obtención</th>
+                    <th style="text-align: center;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cedula in cedulas %}
+                <tr>
+                    <td style="font-weight: bold; color: #0056b3;">{{ cedula.id_cedula }}</td>
+                    <td>{{ cedula.NombreTitulo }}</td>
+                    <td>{{ cedula.Institucion }}</td>
+                    <td>{{ cedula.FechaObtencion|date:"d/m/Y" }}</td>
+                    <td style="text-align: center;">
+                        <a href="{% url 'editar_cedula' docente.claveDocente cedula.id_cedula %}" style="margin-right: 10px; color: #333;">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <form action="{% url 'eliminar_cedula' docente.claveDocente cedula.id_cedula %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background:none; border:none; color:#d9534f; cursor:pointer;" onclick="return confirm('¿Eliminar?')">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px;">No hay cédulas registradas.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

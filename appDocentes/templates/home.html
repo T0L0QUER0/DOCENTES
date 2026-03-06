@@ -1,0 +1,127 @@
+{% extends "base.html" %} 
+
+{% block title %}Docentes | Vista Principal{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <link rel="stylesheet" href="{% static 'Styles/home.css' %}">
+</head>
+
+<body>
+    
+    <section class="page-header">
+        <div class="page-titles">
+            <h1>Bienvenido</h1>
+            <h2>Aquí puedes gestionar todos los datos de forma sencilla</h2>
+        </div>
+        <div>
+            <a href="{% url 'registro' %}" class="add-professor-button">
+                Agregar Personal
+            </a>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <form method="GET" action="{% url 'home' %}" class="filter-form">
+            <label for="puesto">Puesto:</label>
+            <select name="puesto" id="puesto">
+                <option value="">-- Todos los Puestos --</option>
+                {% for puesto in opciones_puesto %}
+                    <option value="{{ puesto }}" {% if puesto == puesto_seleccionado %}selected{% endif %}>
+                        {{ puesto }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label for="perfil">Perfil:</label>
+            <select name="perfil" id="perfil">
+                <option value="">-- Todos los Perfiles --</option>
+                {% for clave, etiqueta in opciones_perfil %}
+                    <option value="{{ clave }}" {% if clave == perfil_seleccionado %} selected{% endif %}>
+                        {{ etiqueta }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn-filter">Aplicar Filtros</button>
+            
+            <a href="{% url 'home' %}" class="btn-clear-filter">Limpiar Filtros</a>
+        </form>
+    </section>
+
+    <section>
+        <div class="table-container">
+            
+            <div class="fixed-column-wrapper">
+                <table class="fixed-table">
+                    <thead>
+                        <tr>
+                            <th>Clave docente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for docente in docentes %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'docente_edit' clave_docente=docente.claveDocente %}" class="edit-link">
+                                    {{ docente.claveDocente }}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="scrollable-content-wrapper">
+                <table class="scrollable-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Puesto</th>
+                            <th>Base</th>
+                            <th>Perfil</th>
+                            <th>Fecha de ingreso</th>
+                            <th>Antigüedad</th>
+                            <th>Cedula(s) Profecional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for docente in docentes %}
+                        <tr>
+                            <td>{{ docente.Nombre }}</td>
+                            <td>{{ docente.ApellidoP }}</td>
+                            <td>{{ docente.ApellidoM }}</td>
+                            <td>{{ docente.Puesto }}</td> 
+                            <td>{{ docente.base }}</td>
+                            <td>{{ docente.get_Perfil_display }}</td> 
+                            <td>{{ docente.FechaIngreso|date:"Y-m-d"}}</td>
+                            <td>{{ docente.antiguedad }}</td>
+                            <td>
+                                <a href="{% url 'lista_cedulas' docente.claveDocente %}" class="btn-cedulas">
+                                    {{ docente.CedulaProfesional }}
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" style="text-align: center;">No hay docentes registrados todavía.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+{% endblock %}
