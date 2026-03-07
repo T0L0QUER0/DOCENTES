@@ -151,7 +151,7 @@
             <h2>Estatus Especial (Inactividad / SEI)</h2>
             <div class="form-grid">
                 {% for field in form %}
-                    {% if field.name in 'FechaInactividad,TipoInactividad,SEI_Nivel' %}
+                    {% if field.name in 'fechaInactividad,TipoInactividad,SEI_Nivel' %}
                         <div class="form-group">
                             {{ field.label_tag }}
                             {{ field }}

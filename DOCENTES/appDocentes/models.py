@@ -41,16 +41,6 @@ class Docente(models.Model): # Tabla Docentes
             ('Candidato', 'Candidato'),
         ])
 
-    FechaInactividad = models.DateField(null=True,blank=True,verbose_name="Fecha de Inactividad")
-    TipoInactividad = models.CharField(max_length=100,null=True,blank=True,verbose_name="Tipo de Inactividad")
-    
-    SEI_Nivel = models.CharField(max_length=50, null=True, blank=True, verbose_name="Nivel SEI", choices=[
-            ('Nivel 1', 'Nivel 1'),
-            ('Nivel 2', 'Nivel 2'),
-            ('Nivel 3', 'Nivel 3'),
-            ('Candidato', 'Candidato'),
-        ])
-
 
     # DATOS DE CONTACTO =======================================================
     correoInstitucional = models.EmailField(max_length=100, unique=True)

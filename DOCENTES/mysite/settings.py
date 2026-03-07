@@ -82,6 +82,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -96,13 +97,13 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'app_profesores_prueba',
+        'NAME': 'app_profesores',
         'USER': 'soporte',
         'PASSWORD': 'Julian_421379',
         'HOST': 'localhost',
         'PORT': '5432', 
     }
-}'''
+}
 
 
 # Password validation

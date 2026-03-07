@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordResetForm
 class DocenteForm(forms.ModelForm):
     class Meta:
         model = Docente
-        exclude = ['FechaInactividad', 'TipoInactividad']
+        exclude = ['fechaInactividad', 'TipoInactividad']
         
         labels = {
             # Personales
@@ -45,7 +45,7 @@ class DocenteForm(forms.ModelForm):
         widgets = {
             'FechaNacimiento': forms.DateInput(attrs={'type': 'date'}),
             'FechaIngreso': forms.DateInput(attrs={'type': 'date'}),
-            'FechaInactividad': forms.DateInput(attrs={'type': 'date'}),
+            'fechaInactividad': forms.DateInput(attrs={'type': 'date'}),
         }
 
 
@@ -95,7 +95,7 @@ class DocenteEdit(forms.ModelForm): # Cambiamos la herencia para incluir TODO
         widgets = {
             'FechaNacimiento': forms.DateInput(attrs={'type': 'date'}),
             'FechaIngreso': forms.DateInput(attrs={'type': 'date'}),
-            'FechaInactividad': forms.DateInput(attrs={'type': 'date'}),
+            'fechaInactividad': forms.DateInput(attrs={'type': 'date'}),
         }
 
 

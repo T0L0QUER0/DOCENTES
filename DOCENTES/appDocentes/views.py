@@ -122,7 +122,7 @@ def edicion_docente(request, clave_docente):
         'docente': docente,
     }
     return render(request, 'edicion_docente.html', context)
- @never_cache
+@never_cache
 @login_required
 def lista_proyectos(request):
     proyectos = Proyectos.objects.all()
