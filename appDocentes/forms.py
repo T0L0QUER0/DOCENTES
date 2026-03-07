@@ -1,5 +1,7 @@
 from django import forms
 from .models import Docente, Division, Proyectos, Cedulas
+from django.contrib.auth.forms import PasswordResetForm
+
 
 class DocenteForm(forms.ModelForm):
     class Meta:
@@ -70,7 +72,7 @@ class DocenteEdit(forms.ModelForm): # Cambiamos la herencia para incluir TODO
             'Colonia': 'Colonia',
             'Discapacidad' : 'Discapacidad',
             # Laborales
-            'claveDocente': 'Matrícula',
+            'claveDocente' : 'Matrícula',
             'Puesto': 'Puesto',
             'division': 'División',
             'Perfil': 'Perfil',
@@ -139,3 +141,14 @@ class CedulasForm(forms.ModelForm):
             'Institucion': 'Institución Expedidora',
             'FechaObtencion': 'Fecha de Obtención',
         }
+    def clean_claveDocente(self):
+    # Si el formulario ya tiene una instancia (estamos editando un docente existente)
+        if self.instance and self.instance.pk:
+        # Devolvemos el valor que ya está en la base de datos, 
+        # ignorando cualquier intento de cambio desde el HTML.
+            return self.instance.claveDocente
+        return self.cleaned_data.get('claveDocente')
+    
+class PasswordReset(PasswordResetForm):
+    def get_users(self, email):
+        return Division.objects.filter(correo_administrador__iexact=email, is_active=True, ).distinct()

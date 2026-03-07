@@ -3,21 +3,41 @@ from django.http import HttpResponse, JsonResponse
 from .forms import DocenteForm, DocenteEdit, ProyectoInvestigacionForm, CedulasForm
 from django.shortcuts import render, get_object_or_404
 from .models import Docente, Division, ProgramaEducativo, AreaConocimiento, Proyectos, Cedulas
-from datetime import date
+from datetime import date, datetime
 from django.db import IntegrityError
 from django.contrib import messages
-from datetime import datetime
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 
-def login(request):
-    if request.method == 'POST':
+@never_cache
+def login_view(request):
+    
+    if request.user.is_authenticated:
         return redirect('home')
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user) 
+            return redirect('home')
+        else:
+            error_message = "Credenciales incorrectas o cuenta inactiva."
+            return render(request, 'login.html', {'error': error_message})
     return render(request, 'login.html')
+
+def logout_usuario(request):
+    logout(request)
+    return redirect('login')
 
 def recup_pass(request):
     return render(request, 'recup_pass.html')
 
 # app/views.py
-
+@never_cache
+@login_required
 def home(request):
     hoy = date.today()
 
@@ -57,6 +77,8 @@ def home(request):
     
     return render(request, 'home.html', context)
 
+@never_cache
+@login_required
 def registro(request):
     if request.method == 'POST':
         form = DocenteForm(request.POST)
@@ -74,6 +96,8 @@ def registro(request):
     }
     return render(request, 'registro.html', contexto)
 
+@never_cache
+@login_required
 def edicion_docente(request, clave_docente):
     # 1. Obtener el objeto Docente o devolver un 404 si no existe
     docente = get_object_or_404(Docente, claveDocente=clave_docente)
@@ -81,7 +105,7 @@ def edicion_docente(request, clave_docente):
     if request.method == 'POST':
         # Cuando se envía el formulario:
         # Instanciar el formulario con los datos POST y la instancia del docente existente
-        form = DocenteForm(request.POST, instance=docente)
+        form = DocenteEdit(request.POST, instance=docente)
         
         if form.is_valid():
             # El form.save() actualiza la instancia existente
@@ -98,10 +122,8 @@ def edicion_docente(request, clave_docente):
         'docente': docente,
     }
     return render(request, 'edicion_docente.html', context)
-
-
-
-
+ @never_cache
+@login_required
 def lista_proyectos(request):
     proyectos = Proyectos.objects.all()
     context = {
@@ -110,7 +132,8 @@ def lista_proyectos(request):
     }
     return render(request, 'proyectos.html', context)
 
-
+@never_cache
+@login_required
 def agregar_proyecto(request): # <-- Quitamos clave_docente de aquí
     if request.method == 'POST':
         form = ProyectoInvestigacionForm(request.POST)
@@ -141,7 +164,8 @@ def agregar_proyecto(request): # <-- Quitamos clave_docente de aquí
     
     return render(request, 'agregar_proyecto.html', {'form': form, 'titulo': 'Agregar Proyecto'})
 
-
+@never_cache
+@login_required
 def editar_proyecto(request, pk):
     """
     Permite editar un proyecto existente.
@@ -178,8 +202,8 @@ def editar_proyecto(request, pk):
     # Reutilizamos la misma plantilla de formulario
     return render(request, 'agregar_proyecto.html', context)
 
-
-
+@never_cache
+@login_required
 def eliminar_proyecto(request, pk):
     """
     Elimina un proyecto de investigación. 
@@ -198,7 +222,8 @@ def eliminar_proyecto(request, pk):
     # Si quisieras una página de confirmación separada, aquí renderizarías ese HTML.
     return redirect('lista_proyectos')
 
-
+@never_cache
+@login_required
 def lista_cedulas(request, clave_docente):
     docente = get_object_or_404(Docente, claveDocente=clave_docente)
     cedulas = Cedulas.objects.filter(claveDocente=docente)
@@ -208,6 +233,8 @@ def lista_cedulas(request, clave_docente):
     })
 
 # 2. AGREGAR CÉDULA
+@never_cache
+@login_required
 def agregar_cedula(request, clave_docente):
     docente = get_object_or_404(Docente, claveDocente=clave_docente)
     if request.method == 'POST':
@@ -225,6 +252,8 @@ def agregar_cedula(request, clave_docente):
     return render(request, 'agregar_cedula.html', {'form': form, 'docente': docente})
 
 # 3. EDITAR CÉDULA
+@never_cache
+@login_required
 def editar_cedula(request, clave_docente, id_cedula):
     cedula = get_object_or_404(Cedulas, id_cedula=id_cedula)
     docente = get_object_or_404(Docente, claveDocente=clave_docente)
@@ -240,6 +269,8 @@ def editar_cedula(request, clave_docente, id_cedula):
     return render(request, 'agregar_cedula.html', {'form': form, 'docente': docente, 'editando': True})
 
 # 4. ELIMINAR CÉDULA
+@never_cache
+@login_required
 def eliminar_cedula(request, clave_docente, id_cedula):
     cedula = get_object_or_404(Cedulas, id_cedula=id_cedula)
     if request.method == 'POST':

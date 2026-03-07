@@ -133,6 +133,7 @@ body {
 
 .sidebar .logout-link:hover {
     background-color: #ddd;
+<<<<<<< HEAD
 }
 
 
@@ -173,4 +174,6 @@ body {
 
 .close-btn:hover {
     color: #000;
+=======
+>>>>>>> backend
 }

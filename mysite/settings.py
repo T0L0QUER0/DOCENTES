@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,11 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    #'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'axes',
     'django.contrib.staticfiles',
     "appDocentes"
 ]
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -55,10 +57,11 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'appDocentes/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -89,7 +92,17 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'app_profesores_prueba',
+        'USER': 'soporte',
+        'PASSWORD': 'Julian_421379',
+        'HOST': 'localhost',
+        'PORT': '5432', 
+    }
+}'''
 
 
 # Password validation
@@ -132,3 +145,31 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'appDocentes.backend.DivisionBackend',
+]
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+LOGIN_URL = '/'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+SESSION_COOKIE_HTTPONLY = True
+
+X_FRAME_OPTIONS = 'DENY'
+
+AXES_FAILURE_LIMIT = 5         # A los 5 fallos bloquea
+AXES_COOLOFF_TIME = 1           # Tiempo de bloqueo=1 (1 hora)
+AXES_LOCKOUT_TEMPLATE = 'login.html' 
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Soporte Gestión Docente <soporte@ujat.mx.prueba>'
+PASSWORD_RESET_TIMEOUT=3600
+
+AUTH_USER_MODEL = 'appDocentes.Division'
+
+PASSWORD_RESET_CONFIRM_REDIRECT = 'login'

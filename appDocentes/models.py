@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 class Docente(models.Model): # Tabla Docentes
 
@@ -28,8 +29,17 @@ class Docente(models.Model): # Tabla Docentes
     base = models.CharField(max_length=20, null=True, choices=[('A','A'),('B','B'),('C','C'),('D','D')])
     status = models.CharField(max_length=20, null=True, choices=[('A','A'),('B','B'),('C','C'),('D','D')])
     tutorado = models.CharField(max_length=2, choices=[('Si', 'Si'), ('No', 'No')], default='No', null=True)
-    programaE = models.ForeignKey('ProgramaEducativo', on_delete=models.PROTECT, null=True)
-    areaC = models.ForeignKey('AreaConocimiento', on_delete=models.PROTECT, null=True)
+    programaE = models.ForeignKey('ProgramaEducativo', on_delete=models.PROTECT, null=True, blank=True)
+    areaC = models.ForeignKey('AreaConocimiento', on_delete=models.PROTECT, null=True, blank=True)
+    FechaInactividad = models.DateField(null=True,blank=True,verbose_name="Fecha de Inactividad")
+    TipoInactividad = models.CharField(max_length=100,null=True,blank=True,verbose_name="Tipo de Inactividad")
+    
+    SEI_Nivel = models.CharField(max_length=50, null=True, blank=True, verbose_name="Nivel SEI", choices=[
+            ('Nivel 1', 'Nivel 1'),
+            ('Nivel 2', 'Nivel 2'),
+            ('Nivel 3', 'Nivel 3'),
+            ('Candidato', 'Candidato'),
+        ])
 
     FechaInactividad = models.DateField(null=True,blank=True,verbose_name="Fecha de Inactividad")
     TipoInactividad = models.CharField(max_length=100,null=True,blank=True,verbose_name="Tipo de Inactividad")
@@ -50,19 +60,70 @@ class Docente(models.Model): # Tabla Docentes
 
     def __str__(self):
         return f"{self.claveDocente} - {self.Nombre} {self.ApellidoP}"
+        
     
+class DivisionManager(BaseUserManager):
+    def create_user(self, correo_administrador, password=None, **extra_fields):
+        if not correo_administrador:
+            raise ValueError('El correo electrónico debe ser obligatorio')        
+        user = self.model(correo_administrador=correo_administrador, **extra_fields)
+        user.set_password(password)        
+        user.save(using=self._db)
+        return user
     
-class Division(models.Model): #Tabla Division
-    claveDivision = models.CharField(max_length=10, primary_key=True)
+
+    
+class Division(AbstractBaseUser): 
+    claveDivision=models.CharField(max_length=100, primary_key=True, db_column='claveDivision')
     Nombre = models.CharField(max_length=100,null=True)
     Calle = models.CharField(max_length=100,null=True)
     Col = models.CharField(max_length=100,null=True)
     Ciudad = models.CharField(max_length=100,null=True)
     NumExt = models.CharField(max_length=10,null=True)
     CodigoP = models.CharField(max_length=10,null=True)
+    correo_administrador = models.EmailField(max_length=100, unique=True)
+
+
+    @property
+    def is_authenticated(self):
+        return True 
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    @classmethod
+    def get_email_field_name(cls):
+        return 'correo_administrador'
+
+    def has_perm(self, perm, obj=None):
+        return self.is_admin 
+
+    def has_module_perms(self, app_label):
+        return self.is_admin
 
     def __str__(self):
+        return str(self.claveDivision)
+    
+
+    last_login = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'correo_administrador'
+    @property
+    def email (self):
+        return self.correo_administrador
+    @property
+    def pk(self):
         return self.claveDivision
+    password = models.CharField(max_length=128, db_column='contraseña_administrador')
+
+    objects = DivisionManager()
+
+    def get_session_auth_hash(self):
+        return self.password
     
 class ProgramaEducativo(models.Model):
     idPe = models.CharField(max_length=10, primary_key=True)
