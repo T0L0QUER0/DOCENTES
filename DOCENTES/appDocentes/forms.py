@@ -6,7 +6,8 @@ from django.contrib.auth.forms import PasswordResetForm
 class DocenteForm(forms.ModelForm):
     class Meta:
         model = Docente
-        exclude = ['fechaInactividad', 'TipoInactividad']
+
+        fields = '__all__'
         
         labels = {
             # Personales
