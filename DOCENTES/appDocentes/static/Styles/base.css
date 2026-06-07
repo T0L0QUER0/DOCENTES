@@ -54,17 +54,29 @@ body {
 /* --- MENÚ LATERAL (Sidebar) --- */
 
 .sidebar {
-    height: 100%; /* Ocupa toda la altura de la ventana (fixed) */
     width: 0; /* Empieza oculto: el JavaScript cambia esto a 250px para mostrarlo */
     position: fixed; /* Permanece fijo en la ventana */
-    z-index: 2000; /* Debe estar MUY por encima de todo (incluyendo el overlay) */
+    z-index: 2000; 
     top: 0;
     left: 0;
-    background-color: #111;
+    background-image: url('../img_base.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    object-fit: cover;
+
     overflow-x: hidden; /* Oculta cualquier contenido que se desborde horizontalmente */
     transition: 0.5s; /* Animación de deslizamiento suave */
-    padding-top: 60px; /* Espacio superior para que no choque con el botón de cerrar */
+    padding-top: 50px; /* Espacio superior para que no choque con el botón de cerrar */
     box-shadow: 2px 0 5px rgba(0,0,0,0.5); /* Sombra para darle profundidad */
+}
+
+.sidebar_logo {
+    background-image: url('../img_logo_ujat.png');
+    position: absolute; /* Posiciona el logo dentro del sidebar */
+    background-repeat: no-repeat;
+    padding-top: 80px;
+    height: auto; /* Mantiene la proporción del logo */
 }
 
 .sidebar a {
@@ -133,7 +145,6 @@ body {
 
 .sidebar .logout-link:hover {
     background-color: #ddd;
-<<<<<<< HEAD
 }
 
 
@@ -174,6 +185,4 @@ body {
 
 .close-btn:hover {
     color: #000;
-=======
->>>>>>> backend
 }

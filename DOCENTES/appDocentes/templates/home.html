@@ -76,7 +76,7 @@
                         {% for docente in docentes %}
                         <tr>
                             <td>
-                                <a href="{% url 'docente_edit' clave_docente=docente.claveDocente %}" class="edit-link">
+                                <a href="{% url 'perfil' clave_docente=docente.claveDocente %}" class="edit-link">
                                     {{ docente.claveDocente }}
                                 </a>
                             </td>

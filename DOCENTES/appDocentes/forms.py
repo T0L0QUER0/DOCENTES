@@ -153,3 +153,4 @@ class CedulasForm(forms.ModelForm):
 class PasswordReset(PasswordResetForm):
     def get_users(self, email):
         return Division.objects.filter(correo_administrador__iexact=email, is_active=True, ).distinct()
+

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Perfil | {{ docente.Nombre }} {{ docente.ApellidoP }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Styles/perfil.css' %}">
+{% endblock %}
+
+{% block content %}
+    
+    <div class="page-container">
+        <header class="form-header">
+            <a href="{% url 'home' %}" class="back-link">&larr; Regresar</a>
+            <div>
+
+        </div>
+        </header>
+    
+    {% csrf_token %}
+    
+    <div class="info-card-perfil">   
+        <section class="form-section">
+            <h2>Información</h2>
+            {% for field in form %}
+                {% if field.name in 'Nombre,ApellidoP,ApellidoM,FechaNacimiento,CedulaProfesional,GradoAcademico,EstadoCivil,Sexo,Residencia,Ciudad,Colonia,Discapacidad' %}
+                    <div class="info-item">
+                        <span class="info-label">{{ field.label }}:</span>
+                        <span class="info-value">{{ field.value|default:"---" }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </section>
+    </div>
+
+    <div class="info-card">   
+        <section class="form-section">
+            <h2>Agenda de hoy</h2>
+        </section>
+    </div>
+
+    <div class="info-card">   
+        <section class="form-section">
+            <h2>Formación académica</h2>
+        </section>
+    </div>
+{% endblock content %}

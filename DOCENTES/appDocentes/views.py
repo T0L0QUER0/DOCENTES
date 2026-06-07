@@ -276,3 +276,47 @@ def eliminar_cedula(request, clave_docente, id_cedula):
     if request.method == 'POST':
         cedula.delete()
     return redirect('lista_cedulas', clave_docente=clave_docente)
+
+
+@never_cache
+@login_required
+def perfil(request, clave_docente):
+    docente = get_object_or_404(Docente, claveDocente=clave_docente)
+    if request.method == 'POST':
+        # Cuando se envía el formulario:
+        # Instanciar el formulario con los datos POST y la instancia del docente existente
+        form = DocenteEdit(request.POST, instance=docente)
+    else:
+        # Cuando se carga la página (GET):
+        # Instanciar el formulario con los datos del docente existente
+        form = DocenteForm(instance=docente)
+    context = {
+        'form': form,
+        'docente': docente,
+    }
+    return render(request, 'perfil.html', context)
+
+'''def edicion_docente(request, clave_docente):
+    # 1. Obtener el objeto Docente o devolver un 404 si no existe
+    docente = get_object_or_404(Docente, claveDocente=clave_docente)
+
+    if request.method == 'POST':
+        # Cuando se envía el formulario:
+        # Instanciar el formulario con los datos POST y la instancia del docente existente
+        form = DocenteEdit(request.POST, instance=docente)
+        
+        if form.is_valid():
+            # El form.save() actualiza la instancia existente
+            form.save()
+            # Redirigir a la vista principal después de guardar
+            return redirect('home')  
+    else:
+        # Cuando se carga la página (GET):
+        # Instanciar el formulario con los datos del docente existente
+        form = DocenteForm(instance=docente)
+
+    context = {
+        'form': form,
+        'docente': docente,
+    }
+    return render(request, 'edicion_docente.html', context)'''

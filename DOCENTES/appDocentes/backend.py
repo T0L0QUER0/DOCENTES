@@ -22,3 +22,4 @@ class DivisionBackend(BaseBackend):
             return Division.objects.get(pk=user_id)
         except Division.DoesNotExist:
             return None
+        
