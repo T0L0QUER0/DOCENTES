@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from pathlib import Path
 import os
+import os
+from dotenv import load_dotenv
+from urllib.parse import urlparse, parse_qsl
+import dj_database_url
+
+load_dotenv()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -94,15 +102,14 @@ DATABASES = {
     }
 }
 '''
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'app_profesores',
-        'USER': 'soporte',
-        'PASSWORD': 'Julian_421379',
-        'HOST': 'localhost',
-        'PORT': '5432', 
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600, # Optimiza las conexiones (ideal para Neon)
+        conn_health_checks=True,
+    )
 }
 
 
